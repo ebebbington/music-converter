@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+    app:
+        container_name: app
+        build:
+            context: .
+            dockerfile: Dockerfile
+        working_dir: /var/www
+        command: bash -c "deno run -A app.ts"
+        volumes:
+          - .:/var/www/
+        ports:
+          - "1445:1445"
