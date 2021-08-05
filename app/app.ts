@@ -38,7 +38,6 @@ class Res extends Drash.Http.Resource {
         filterName: "volume=" + increaseBy,
       })
       .save("pipe:1", false, { f: "mp3" });
-    // TODO :: Add tests
     Deno.removeSync(mp4filename);
     this.response.headers.set("Content-Length", String(mp3.length));
     this.response.headers.set("Content-Type", "application/mpeg");
