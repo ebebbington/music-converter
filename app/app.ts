@@ -1,21 +1,5 @@
 import { Drash, ffmpeg, ytdl } from "./deps.ts";
-
-async function getTitleOfVideoFromUrl(url: string): Promise<string> {
-  const res = await fetch(url);
-  const text = await res.text();
-  const match = text.match(/<title>(.*)<\/title>/)![1].replace(" - YouTube", "")
-    .replace(/(&amp;|&lt;|&gt;|&#39;|&quot;|&#x60;)/g, (tag) => {
-      return {
-        "&amp;": "&",
-        "&lt;": "<",
-        "&gt;": ">",
-        "&#39;": "'",
-        "&quot;": '"',
-        "&#x60;": "`",
-      }[tag] || tag;
-    });
-  return match;
-}
+import { getTitleOfVideoFromUrl } from "./util.ts";
 
 const decoder = new TextDecoder();
 const ffmpegDir = "/usr/bin/ffmpeg";
@@ -54,7 +38,7 @@ class Res extends Drash.Http.Resource {
         filterName: "volume=" + increaseBy,
       })
       .save("pipe:1", false, { f: "mp3" });
-      // TODO :: Add tests
+    // TODO :: Add tests
     Deno.removeSync(mp4filename);
     this.response.headers.set("Content-Length", String(mp3.length));
     this.response.headers.set("Content-Type", "application/mpeg");
@@ -73,3 +57,4 @@ await server.run({
   hostname: "app",
   port: 1445,
 });
+console.log("running on http://localhost:1445");

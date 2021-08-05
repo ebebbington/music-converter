@@ -1,14 +1,28 @@
 version: '3'
 
 services:
-    app:
-        container_name: app
-        build:
-            context: .
-            dockerfile: Dockerfile
-        working_dir: /var/www
-        command: bash -c "deno run -A app.ts"
-        volumes:
-          - .:/var/www/
-        ports:
-          - "1445:1445"
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /var/www
+    command: bash -c "deno run -A app.ts"
+    volumes:
+      - ./app/.:/var/www/.
+      - ./util.ts:/var/www/util.ts
+      - ./deps.ts:/var/www/deps.ts
+    ports:
+      - "1445:1445"
+
+  cli:
+    container_name: cli
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /var/www
+    command: bash -c "tail -f /dev/null"
+    volumes:
+      - ./cli:/var/www/.
+      - ./deps.ts:/var/www/deps.ts
+      - ./util.ts:/var/www/util.ts
