@@ -6,7 +6,7 @@ Deno.test("GET / returns 200", async () => {
   assertEquals(res.status, 200);
 });
 
-Deno.test("POST / returns 200", async () => {
+async function sendPost() {
   const res = await fetch("http://localhost:1445", {
     method: "POST",
     headers: {
@@ -18,8 +18,16 @@ Deno.test("POST / returns 200", async () => {
     }),
   });
   await res.text();
+  return res.status;
+}
+
+Deno.test("POST / returns 200", async () => {
+  let status = await sendPost();
+  while (status !== 200) {
+    status = await sendPost();
+  }
   const title = "Twiddle - Lost In The Cold";
   assertEquals(existsSync(title + ".mp4"), false);
   assertEquals(existsSync(title + ".mp3"), false);
-  assertEquals(res.status, 200);
+  assertEquals(status, 200);
 });

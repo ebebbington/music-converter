@@ -31,7 +31,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Ensure cli works
         run: |
-          mkdir 'D:/Music/Song with ncrease Vol' 
+          docker-compose up -d cli
+          mkdir 'D:/Music/Song with Increase Vol' 
           sh cli/convert.sh
 
   linter:
