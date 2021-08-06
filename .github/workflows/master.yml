@@ -10,36 +10,39 @@ on:
 
 jobs:
 
-  tests:
+  app-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - name: Install Deno
         uses: denoland/setup-deno@v1
         with:
           deno-version: vx.x.x
-
       - name: Run Tests
         run: |
-          docker-compose up -d
-          sleep 5
-          docker exec app deno test -A
+          docker-compose up -d app
+          sleep 10
+          cd app
+          deno test -A --unstable
 
-  linter:
-    # Only one OS is required since fmt is cross platform
-    runs-on: ubuntu-latest
-
+  cli-tests:
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Ensure cli works
+        run: |
+          mkdir 'D:/Music/Song with ncrease Vol' 
+          sh cli/convert.sh
 
+  linter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
       - name: Install Deno
         uses: denoland/setup-deno@v1
         with:
           deno-version: vx.x.x
-
       - name: Formatter
         run: deno fmt --check
-
       - name: linter
         run: deno lint
