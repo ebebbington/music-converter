@@ -25,15 +25,16 @@ jobs:
           cd app
           deno test -A --unstable
 
-  cli-tests:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Ensure cli works
-        run: |
-          docker-compose up -d cli
-          mkdir 'D:/Music/Song with Increase Vol' 
-          sh cli/convert.sh
+  # debian isnt available on windows :/
+  # cli-tests:
+  #   runs-on: windows-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Ensure cli works
+  #       run: |
+  #         docker-compose up -d cli
+  #         mkdir 'D:/Music/Song with Increase Vol' 
+  #         sh cli/convert.sh
 
   linter:
     runs-on: ubuntu-latest
