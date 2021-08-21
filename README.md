@@ -3,13 +3,7 @@
 ## Getting Started
 
 ```shell
-$ docker-compose up -d app
-# go to localhost:1445
-```
-
-or
-
-```shell
+$ docker-compose up -d cli
 $ sh cli/convert.sh
 ```
 

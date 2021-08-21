@@ -10,21 +10,6 @@ on:
 
 jobs:
 
-  app-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install Deno
-        uses: denoland/setup-deno@v1
-        with:
-          deno-version: vx.x.x
-      - name: Run Tests
-        run: |
-          docker-compose up -d app
-          sleep 10
-          cd app
-          deno test -A --unstable
-
   # debian isnt available on windows :/
   # cli-tests:
   #   runs-on: windows-latest

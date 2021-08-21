@@ -16,9 +16,8 @@ jobs:
 
       - name: Update Deps
         run: |
-          deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm/mod.ts update
           deno run -A console/update_dockerfile.ts
-          cd app/tests
+          cd cli
           deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm/mod.ts update
 
       - name: Create Pull Request
