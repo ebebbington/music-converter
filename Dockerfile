@@ -4,6 +4,6 @@ RUN apt-get update \
  && apt-get clean \
  && apt-get install bash curl unzip ffmpeg -y
 
-RUN curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL=/usr/local sh -s v1.19.1 \
+RUN curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL=/usr/local sh -s v1.19.2 \
   && export DENO_INSTALL="/root/.local" \
   && export PATH="$DENO_INSTALL/bin:$PATH"
